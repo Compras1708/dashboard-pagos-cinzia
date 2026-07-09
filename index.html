@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resumen de pagos 2026</title>
+<style>
+  :root {
+    --surface-2: #1f1f1c;
+    --surface-1: #161614;
+    --surface-0: #0a0a09;
+    --text-primary: #f5f2ec;
+    --text-secondary: #b3b0a8;
+    --text-muted: #7d7a72;
+    --border: rgba(255,255,255,0.09);
+    --accent: #ff7a1a;
+    --accent-2: #ffa94d;
+    --accent-3: #ffd08a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: var(--surface-0);
+    color: var(--text-primary);
+    margin: 0;
+    padding: 2rem 1rem 4rem;
+  }
+  .wrap { max-width: 900px; margin: 0 auto; }
+  h1 { font-size: 22px; font-weight: 500; margin: 0 0 1.5rem; color: var(--text-primary); }
+  h1::before { content: ''; }
+  h2 { font-size: 16px; font-weight: 500; margin: 0 0 8px; color: var(--text-primary); }
+  h2::before { content: '● '; color: var(--accent); font-size: 11px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { padding: 6px 4px; }
+  th { text-align: left; color: var(--text-secondary); font-weight: 500; border-bottom: 0.5px solid var(--border); }
+  td { border-bottom: 0.5px solid var(--border); }
+  .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 2rem; }
+  .metric-card { background: var(--surface-1); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; }
+  .metric-card p.label { font-size: 13px; color: var(--text-secondary); margin: 0 0 4px; }
+  .metric-card p.value { font-size: 24px; font-weight: 500; margin: 0; color: var(--accent); }
+  .legend { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 8px; font-size: 12px; color: var(--text-secondary); }
+  .legend span.dot { width: 10px; height: 10px; border-radius: 2px; display: inline-block; margin-right: 4px; vertical-align: -1px; }
+  .chart-box { position: relative; width: 100%; margin-bottom: 2rem; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 2rem; align-items: start; }
+  .footnote { font-size: 13px; color: var(--text-muted); margin-top: 2rem; }
+  @media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Resumen de pagos 2026 — foco junio y julio</h1>
+
+<div class="metric-grid">
+  <div class="metric-card"><p class="label">Total 2026</p><p class="value">$712,8M</p></div>
+  <div class="metric-card"><p class="label">Junio 2026</p><p class="value">$94,9M</p></div>
+  <div class="metric-card"><p class="label">Julio 2026 (programado)</p><p class="value">$72,9M</p></div>
+  <div class="metric-card"><p class="label">Pendiente de girar</p><p class="value">$33,3M</p></div>
+</div>
+
+<h2>Monto por mes y modalidad — 2026</h2>
+<div class="legend">
+  <span><span class="dot" style="background:#ff7a1a"></span>Echeq</span>
+  <span><span class="dot" style="background:#ffa94d"></span>Transferencias</span>
+  <span><span class="dot" style="background:#ffd08a"></span>Efectivo</span>
+</div>
+<div class="chart-box" style="height:300px">
+  <canvas id="monthChart" role="img" aria-label="Grafico de barras apiladas: monto pagado por mes en 2026, dividido en echeq, transferencias y efectivo.">Datos por mes 2026 en millones de pesos: enero 79, febrero 107.3, marzo 106.9, abril 118.3, mayo 100.3, junio 94.9, julio 72.9, agosto 21.7, septiembre 9, octubre 2.4, noviembre 0, diciembre 0.</canvas>
+</div>
+
+<div class="two-col">
+  <div>
+    <h2>Modalidad — total 2026</h2>
+    <div class="chart-box" style="height:220px">
+      <canvas id="donutTotal" role="img" aria-label="Distribucion 2026 por modalidad: echeq 92 por ciento, transferencias 6 por ciento, efectivo 2 por ciento">Echeq 654.6M (92%), transferencias 42.1M (6%), efectivo 16.1M (2%)</canvas>
+    </div>
+  </div>
+  <div>
+    <h2>Junio vs julio</h2>
+    <div class="chart-box" style="height:220px">
+      <canvas id="junJulChart" role="img" aria-label="Comparacion junio vs julio 2026 por modalidad">Junio: echeq 75.4M, transferencias 19.5M. Julio: echeq 67M, transferencias 6M.</canvas>
+    </div>
+  </div>
+</div>
+
+<h2>Pagos urgentes — próximos 15 días (9 al 24 de julio)</h2>
+<table style="margin-bottom:2rem">
+  <thead><tr><th style="width:16%">Fecha</th><th style="width:20%">Modalidad</th><th>Proveedor</th><th style="width:24%;text-align:right">Monto</th></tr></thead>
+  <tbody id="urgentBody"></tbody>
+</table>
+
+<div class="metric-grid">
+  <div class="metric-card">
+    <p class="label">Echeq por girar</p>
+    <p class="value" style="font-size:20px">$30,96M</p>
+    <p style="font-size:12px;color:var(--text-muted);margin:2px 0 0">28 cheques · jul-oct</p>
+  </div>
+  <div class="metric-card">
+    <p class="label">Transferencias por girar</p>
+    <p class="value" style="font-size:20px">$2,37M</p>
+    <p style="font-size:12px;color:var(--text-muted);margin:2px 0 0">6 pagos · sin fecha fija</p>
+  </div>
+  <div class="metric-card">
+    <p class="label">Efectivo por pagar</p>
+    <p class="value" style="font-size:20px">USD 4.400</p>
+    <p style="font-size:12px;color:var(--text-muted);margin:2px 0 0">1 pago · 15/07</p>
+  </div>
+</div>
+
+<h2>Echeq por girar — resto del calendario</h2>
+<div class="chart-box" style="height:140px">
+  <canvas id="cheqMonthChart" role="img" aria-label="Cheques por girar agrupados por mes: julio 18.1 millones en 16 cheques, agosto en adelante 12.8 millones en 12 cheques">Julio 18.1M (16 cheques), agosto en adelante 12.8M (12 cheques)</canvas>
+</div>
+
+<p class="footnote">Deudas destacadas (saldo pendiente por proveedor): Neil $9,49M efectivo · Wurth $4,54M echeq · Genesis vidrios $253,9K transferencia · Chapista $100K transferencia.</p>
+
+<hr style="border:none;border-top:0.5px solid var(--border);margin:2.5rem 0">
+
+<h1 style="font-size:19px">Fletes, insumos rotos y compras internacionales</h1>
+<p class="sub" style="font-size:13px;color:var(--text-muted);margin:-8px 0 1.5rem">La planilla se empezó a usar de forma sistemática recién en junio 2026 — por eso estas tres secciones arrancan ahí.</p>
+
+<h2>Fletes (logística) — junio y julio</h2>
+<div class="metric-grid">
+  <div class="metric-card"><p class="label">Total fletes jun-jul</p><p class="value" style="font-size:20px">$1.648.000</p></div>
+  <div class="metric-card"><p class="label">Junio</p><p class="value" style="font-size:20px">$1.503.000</p></div>
+  <div class="metric-card"><p class="label">Julio (al 01/07)</p><p class="value" style="font-size:20px">$145.000</p></div>
+</div>
+<div class="chart-box" style="height:140px">
+  <canvas id="fletesChart" role="img" aria-label="Fletes por responsable: Tejeda 823 mil, Omar 700 mil, Trapos 125 mil">Tejeda $823.000, Omar $700.000, Trapos $125.000</canvas>
+</div>
+
+<h2>Insumos rotos — dinero perdido (junio)</h2>
+<table style="margin-bottom:0.5rem">
+  <thead><tr><th style="width:14%">Fecha</th><th>Insumo</th><th>Motivo / operario</th><th style="width:16%;text-align:right">Costo</th></tr></thead>
+  <tbody>
+    <tr><td>09/06</td><td>Escalón eléctrico</td><td style="color:var(--text-secondary)">Módulo quemado — Orona Rodrigo</td><td style="text-align:right">$289.672</td></tr>
+    <tr><td>18/06</td><td>Mampara 1600x500</td><td style="color:var(--text-secondary)">Aluminio de puerta — Moreyra</td><td style="text-align:right">$380.000</td></tr>
+    <tr><td>14/06</td><td>Tablero acrílico furgón</td><td style="color:var(--text-secondary)">—</td><td style="text-align:right">$50.900</td></tr>
+  </tbody>
+</table>
+<p class="footnote" style="margin-top:0">Total real: <strong style="color:var(--text-primary)">$720.572</strong>. La propia hoja "Insumos rotos" muestra un total de $430.900 porque la celda del escalón eléctrico ($289.672) quedó cargada como texto y no la suma su fórmula — vale la pena corregir esa celda en el original.</p>
+
+<h2>Compras internacionales (China)</h2>
+<div class="metric-grid">
+  <div class="metric-card"><p class="label">Facturado (Dongtai + CNC router)</p><p class="value" style="font-size:20px">USD 81.300</p></div>
+  <div class="metric-card"><p class="label">Ya pagado</p><p class="value" style="font-size:20px">USD 46.520</p></div>
+  <div class="metric-card"><p class="label">Pendiente de pagar</p><p class="value" style="font-size:20px">USD 126.280</p></div>
+</div>
+<table style="margin-bottom:0.5rem">
+  <thead><tr><th>Proveedor</th><th>Concepto</th><th style="width:16%">Fecha</th><th style="width:16%;text-align:right">Monto</th><th style="width:14%;text-align:right">Estado</th></tr></thead>
+  <tbody>
+    <tr><td>Dongtai</td><td>Factura (FC $48.500) — anticipo</td><td>01/05</td><td style="text-align:right">USD 13.720</td><td style="text-align:right;color:#1baf7a">Pagado</td></tr>
+    <tr><td>Dongtai</td><td>Factura (FC $48.500) — saldo final</td><td>16/07</td><td style="text-align:right">USD 34.780</td><td style="text-align:right;color:#d85a30">Pendiente</td></tr>
+    <tr><td>CNC router</td><td>Factura (FC $32.800) — anticipo</td><td>28/12/2025</td><td style="text-align:right">USD 11.400</td><td style="text-align:right;color:#1baf7a">Pagado</td></tr>
+    <tr><td>CNC router</td><td>Factura (FC $32.800) — saldo final</td><td>18/06</td><td style="text-align:right">USD 21.400</td><td style="text-align:right;color:#1baf7a">Pagado</td></tr>
+    <tr><td>CNC router</td><td>Nacionalización</td><td>10/10</td><td style="text-align:right">USD 27.000</td><td style="text-align:right;color:#d85a30">Pendiente</td></tr>
+    <tr><td>Dongtai</td><td>Nacionalización</td><td>03/11</td><td style="text-align:right">USD 48.500</td><td style="text-align:right;color:#d85a30">Pendiente</td></tr>
+    <tr><td>CNC router</td><td>Pago forwarder</td><td>15/10</td><td style="text-align:right">USD 8.000</td><td style="text-align:right;color:#d85a30">Pendiente</td></tr>
+    <tr><td>Dongtai</td><td>Pago forwarder</td><td>13/11</td><td style="text-align:right">USD 8.000</td><td style="text-align:right;color:#d85a30">Pendiente</td></tr>
+  </tbody>
+</table>
+<p class="footnote" style="margin-top:0">Montos en USD (factura comercial de importación). CNC router ya está totalmente pagado en su factura; queda pendiente su nacionalización y forwarder. Dongtai tiene el saldo final, nacionalización y forwarder pendientes — en total USD 126.280 de salida de caja proyectada entre julio y noviembre 2026.</p>
+
+<h2>Capital en inventario — Warehouse Cinzia</h2>
+<div class="metric-card" style="max-width:420px">
+  <p class="label">Valor en tiempo real</p>
+  <p style="font-size:15px;margin:4px 0 0">Este número cambia todos los días (entra y sale mercadería), así que en vez de una foto fija acá, lo dejé como un panel en vivo en Cowork que cruza el stock actual con los precios cargados y se recalcula cada vez que se abre.</p>
+</div>
+
+<p class="footnote">Fuente: planilla "Historial de pagos" (Google Sheets) — hojas Historial de cheques, Historial transferencias, Historial efectivo, Cheques por girar, Transferencias por girar, Efectivo por pagar, Deudas, Fletes, Insumos rotos y Compras internacionales. Capital en inventario: "CINZIA WAREHOUSE" (hoja Inventario nuevo) + "Precios Warehouse Cinzia". Última actualización de esta página: 9 de julio de 2026.</p>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const months = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+const echeq = [69.5,100.7,106.9,108.1,93.9,75.4,67.0,21.7,9.0,2.4,0,0];
+const transf = [0,0,0,10.2,6.4,19.5,6.0,0,0,0,0,0];
+const efect = [9.5,6.6,0,0,0,0,0,0,0,0,0,0];
+
+new Chart(document.getElementById('monthChart'), {
+  type: 'bar',
+  data: {
+    labels: months,
+    datasets: [
+      { label: 'Echeq', data: echeq, backgroundColor: '#ff7a1a', stack: 's' },
+      { label: 'Transferencias', data: transf, backgroundColor: '#ffa94d', stack: 's' },
+      { label: 'Efectivo', data: efect, backgroundColor: '#ffd08a', stack: 's' }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => c.dataset.label + ': $' + c.parsed.y.toFixed(1) + 'M' } } },
+    scales: {
+      x: { stacked: true, grid: { display: false }, ticks: { color: '#8f8c84' } },
+      y: { stacked: true, grid: { color: 'rgba(255,255,255,0.08)' }, ticks: { color: '#8f8c84', callback: (v) => '$' + v + 'M' } }
+    }
+  }
+});
+
+new Chart(document.getElementById('donutTotal'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Echeq','Transferencias','Efectivo'],
+    datasets: [{ data: [654.6,42.1,16.1], backgroundColor: ['#ff7a1a','#ffa94d','#ffd08a'], borderColor: '#161614', borderWidth: 2 }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => c.label + ': $' + c.parsed + 'M' } } }
+  }
+});
+
+new Chart(document.getElementById('junJulChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Junio','Julio'],
+    datasets: [
+      { label: 'Echeq', data: [75.4,67.0], backgroundColor: '#ff7a1a', stack: 's' },
+      { label: 'Transferencias', data: [19.5,6.0], backgroundColor: '#ffa94d', stack: 's' }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => c.dataset.label + ': $' + c.parsed.y.toFixed(1) + 'M' } } },
+    scales: {
+      x: { stacked: true, grid: { display: false }, ticks: { color: '#8f8c84' } },
+      y: { stacked: true, grid: { color: 'rgba(255,255,255,0.08)' }, ticks: { color: '#8f8c84', callback: (v) => '$' + v + 'M' } }
+    }
+  }
+});
+
+new Chart(document.getElementById('cheqMonthChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Julio','Agosto en adelante'],
+    datasets: [{ label: 'Echeq por girar', data: [18.1,12.8], backgroundColor: '#ff7a1a' }]
+  },
+  options: {
+    indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => '$' + c.parsed.x.toFixed(1) + 'M' } } },
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.08)' }, ticks: { color: '#8f8c84', callback: (v) => '$' + v + 'M' } },
+      y: { grid: { display: false }, ticks: { color: '#8f8c84' } }
+    }
+  }
+});
+
+new Chart(document.getElementById('fletesChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Tejeda','Omar','Trapos'],
+    datasets: [{ label: 'Fletes', data: [823000,700000,125000], backgroundColor: '#ffa94d' }]
+  },
+  options: {
+    indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => '$' + c.parsed.x.toLocaleString('es-AR') } } },
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.08)' }, ticks: { color: '#8f8c84', callback: (v) => '$' + (v/1000) + 'K' } },
+      y: { grid: { display: false }, ticks: { color: '#8f8c84' } }
+    }
+  }
+});
+
+const urgent = [
+  ['08/07','Echeq','Af distribuidora',319200],
+  ['10/07','Echeq','Car pack',1157594],
+  ['10/07','Echeq','Caram',1762075],
+  ['10/07','Echeq','Hissuma',327129],
+  ['13/07','Echeq','Wurth',4543838],
+  ['15/07','Echeq','Siccba',550588],
+  ['15/07','Efectivo','DM oleohidraulica','USD 4.400'],
+  ['18/07','Echeq','Tapihouse',565640],
+  ['22/07','Echeq','Todo fer',1200000],
+  ['23/07','Echeq','Af distribuidora',319200],
+  ['24/07','Echeq','Nelson pinturas',1304623],
+  ['24/07','Echeq','Cáceres',831916]
+];
+const body = document.getElementById('urgentBody');
+urgent.forEach(([f,m,p,monto]) => {
+  const tr = document.createElement('tr');
+  const montoStr = typeof monto === 'number' ? '$' + monto.toLocaleString('es-AR') : monto;
+  tr.innerHTML = '<td>'+f+'</td><td style="color:var(--text-secondary)">'+m+'</td><td>'+p+'</td><td style="text-align:right">'+montoStr+'</td>';
+  body.appendChild(tr);
+});
+</script>
+</body>
+</html>
