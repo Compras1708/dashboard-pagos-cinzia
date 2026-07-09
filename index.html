@@ -111,7 +111,15 @@
   <canvas id="cheqMonthChart" role="img" aria-label="Cheques por girar agrupados por mes: julio 18.1 millones en 16 cheques, agosto en adelante 12.8 millones en 12 cheques">Julio 18.1M (16 cheques), agosto en adelante 12.8M (12 cheques)</canvas>
 </div>
 
-<p class="footnote">Deudas destacadas (saldo pendiente por proveedor): Neil $9,49M efectivo · Wurth $4,54M echeq · Genesis vidrios $253,9K transferencia · Chapista $100K transferencia.</p>
+<h2>Deudas destacadas — saldo pendiente por proveedor</h2>
+<div class="legend">
+  <span><span class="dot" style="background:#ff7a1a"></span>Echeq</span>
+  <span><span class="dot" style="background:#ffa94d"></span>Transferencias</span>
+  <span><span class="dot" style="background:#ffd08a"></span>Efectivo</span>
+</div>
+<div class="chart-box" style="height:160px">
+  <canvas id="deudasChart" role="img" aria-label="Deudas pendientes por proveedor: Neil 9.49 millones efectivo, Wurth 4.54 millones echeq, Genesis vidrios 253.9 mil transferencia, Chapista 100 mil transferencia">Neil $9.490.000 (efectivo), Wurth $4.540.000 (echeq), Genesis vidrios $253.900 (transferencia), Chapista $100.000 (transferencia)</canvas>
+</div>
 
 <hr style="border:none;border-top:0.5px solid var(--border);margin:2.5rem 0">
 
@@ -254,6 +262,25 @@ new Chart(document.getElementById('fletesChart'), {
     plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => '$' + c.parsed.x.toLocaleString('es-AR') } } },
     scales: {
       x: { grid: { color: 'rgba(255,255,255,0.08)' }, ticks: { color: '#8f8c84', callback: (v) => '$' + (v/1000) + 'K' } },
+      y: { grid: { display: false }, ticks: { color: '#8f8c84' } }
+    }
+  }
+});
+
+new Chart(document.getElementById('deudasChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Neil','Wurth','Genesis vidrios','Chapista'],
+    datasets: [{
+      data: [9490000,4540000,253900,100000],
+      backgroundColor: ['#ffd08a','#ff7a1a','#ffa94d','#ffa94d']
+    }]
+  },
+  options: {
+    indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: (c) => '$' + c.parsed.x.toLocaleString('es-AR') } } },
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.08)' }, ticks: { color: '#8f8c84', callback: (v) => '$' + (v/1e6).toFixed(1) + 'M' } },
       y: { grid: { display: false }, ticks: { color: '#8f8c84' } }
     }
   }
