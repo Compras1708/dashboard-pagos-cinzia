@@ -187,18 +187,22 @@
 <p class="sub" style="font-size:13px;color:var(--text-muted);margin:-8px 0 1.5rem">Últimas solicitudes de presupuesto cargadas en Odoo, con la actividad siguiente que indica cómo y cuándo se haría el desembolso. Foto al 14/07/2026 — esta hoja se arma a mano por ahora, avisame cuando quieras una vuelta nueva.</p>
 
 <div class="metric-grid">
-  <div class="metric-card"><p class="label">Total pendiente (últimas cargadas)</p><p class="value" style="font-size:20px">$8.575.723</p></div>
-  <div class="metric-card"><p class="label">Cantidad de órdenes</p><p class="value" style="font-size:20px">11</p></div>
-  <div class="metric-card"><p class="label">Rango</p><p class="value" style="font-size:16px">Ayer — hace 4 días</p></div>
+  <div class="metric-card"><p class="label">Total pendiente (ARS)</p><p class="value" style="font-size:20px">$80.129.837</p></div>
+  <div class="metric-card"><p class="label">Total pendiente (USD)</p><p class="value" style="font-size:20px">U$21.496</p></div>
+  <div class="metric-card"><p class="label">Cantidad de órdenes</p><p class="value" style="font-size:20px">45</p></div>
+  <div class="metric-card"><p class="label">Rango</p><p class="value" style="font-size:14px">P01830 (neil) → P02036 (Ipipsa)</p></div>
 </div>
 
-<h2>Detalle por proveedor</h2>
+<h2>Por modalidad (ARS)</h2>
+<div class="chart-box" style="height:170px"><canvas id="odooChart"></canvas></div>
+
+<h2>Detalle — todas las destacadas con estrellita</h2>
 <table style="margin-bottom:1.5rem">
-  <thead><tr><th style="width:14%">Ref.</th><th>Proveedor</th><th>Actividad siguiente</th><th class="num" style="width:20%;text-align:right">Total</th></tr></thead>
+  <thead><tr><th style="width:12%">Ref.</th><th>Proveedor</th><th>Actividad siguiente</th><th class="num" style="width:18%;text-align:right">Total</th></tr></thead>
   <tbody>
     <tr><td>P02036</td><td>Ipipsa</td><td style="color:var(--text-secondary)">Echeq 20 - Transferencia 50%</td><td style="text-align:right">$670.700,00</td></tr>
     <tr><td>P02035</td><td>Resinfibras S.R.L.</td><td style="color:var(--text-secondary)">Echeq 20 - Transferencia 50%</td><td style="text-align:right">$1.934.230,00</td></tr>
-    <tr><td>P02034</td><td>LAGO HERMANOS SA</td><td style="color:var(--text-secondary)">Transferencia</td><td style="text-align:right">$102.000,10</td></tr>
+    <tr><td>P02034</td><td>LAGO HERMANOS SA</td><td style="color:var(--text-secondary)">Taransferencia</td><td style="text-align:right">$102.000,10</td></tr>
     <tr><td>P02033</td><td>Cugat</td><td style="color:var(--text-secondary)">Transferencia</td><td style="text-align:right">$145.200,00</td></tr>
     <tr><td>P02032</td><td>Iers</td><td style="color:var(--text-secondary)">Transferencia</td><td style="text-align:right">$216.000,00</td></tr>
     <tr><td>P02031</td><td>Embalacor SA</td><td style="color:var(--text-secondary)">Echeq 30</td><td style="text-align:right">$826.464,00</td></tr>
@@ -207,13 +211,44 @@
     <tr><td>P02028</td><td>tapihouse</td><td style="color:var(--text-secondary)">Echeq 30</td><td style="text-align:right">$680.879,00</td></tr>
     <tr><td>P02027</td><td>Compu fix</td><td style="color:var(--text-secondary)">Transferencia</td><td style="text-align:right">$95.000,00</td></tr>
     <tr><td>P02026</td><td>Lonas bedran</td><td style="color:var(--text-secondary)">Transferencia</td><td style="text-align:right">$272.250,00</td></tr>
+    <tr><td>P02025</td><td>legitel</td><td style="color:var(--text-secondary)">Transferencia</td><td style="text-align:right">$816.750,00</td></tr>
+    <tr><td>P02024</td><td>Servicios SG</td><td style="color:var(--text-secondary)">Transferencia</td><td style="text-align:right">$900.000,00</td></tr>
+    <tr><td>P02023</td><td>Proyectando</td><td style="color:var(--text-secondary)">Echeq-30</td><td style="text-align:right">$794.223,43</td></tr>
+    <tr><td>P02022</td><td>Dismaxi</td><td style="color:var(--text-secondary)">Echeq 20</td><td style="text-align:right">$715.412,50</td></tr>
+    <tr><td>P02021</td><td>Ferreteria Caceres</td><td style="color:var(--text-secondary)">Echeq 15-30</td><td style="text-align:right">$1.663.832,52</td></tr>
+    <tr><td>P02020</td><td>Hissuma solar</td><td style="color:var(--text-secondary)">Echeq 0-15-30-45</td><td style="text-align:right">$1.308.515,56</td></tr>
+    <tr><td>P02019</td><td>DM oleohidraulica SAS</td><td style="color:var(--text-secondary)">Efectivo</td><td style="text-align:right">U$4.400,00</td></tr>
+    <tr><td>P02018</td><td>Richetta y Cia</td><td style="color:var(--text-secondary)">Echeq 10-20</td><td style="text-align:right">$2.852.898,18</td></tr>
+    <tr><td>P02017</td><td>Todo Fer SA</td><td style="color:var(--text-secondary)">Echeq 30</td><td style="text-align:right">$1.200.000,00</td></tr>
+    <tr><td>P02016</td><td>Faros ausili SRL</td><td style="color:var(--text-secondary)">Echeq 30</td><td style="text-align:right">$534.426,75</td></tr>
+    <tr><td>P02015</td><td>Rancagua</td><td style="color:var(--text-secondary)">Echeq 30</td><td style="text-align:right">$1.000.000,00</td></tr>
+    <tr><td>P02014</td><td>Cattaneo Hnos SRL</td><td style="color:var(--text-secondary)">Echeq 30-60-90</td><td style="text-align:right">$4.320.000,02</td></tr>
+    <tr><td>P02013</td><td>Car Pack</td><td style="color:var(--text-secondary)">Echeq -7</td><td style="text-align:right">$1.157.594,00</td></tr>
+    <tr><td>P02012</td><td>flojumar</td><td style="color:var(--text-secondary)">Echeq-30</td><td style="text-align:right">$1.305.210,00</td></tr>
+    <tr><td>P02011</td><td>Wurth</td><td style="color:var(--text-secondary)">Echeq -7</td><td style="text-align:right">$4.543.837,56</td></tr>
+    <tr><td>P02009</td><td>Cattaneo Hnos SRL</td><td style="color:var(--text-secondary)">Transferencia</td><td style="text-align:right">$240.000,00</td></tr>
+    <tr><td>P02008</td><td>Elumiled</td><td style="color:var(--text-secondary)">Transferencia</td><td style="text-align:right">$665.217,34</td></tr>
+    <tr><td>P02007</td><td>CNC INSUMOS SRL</td><td style="color:var(--text-secondary)">Transferencia</td><td style="text-align:right">$422.925,25</td></tr>
+    <tr><td>P02006</td><td>CARAM S.A.</td><td style="color:var(--text-secondary)">Echeq 30</td><td style="text-align:right">$8.810.373,00</td></tr>
+    <tr><td>P02005</td><td>AF distribuidora</td><td style="color:var(--text-secondary)">Echeq 15-30</td><td style="text-align:right">$638.399,97</td></tr>
+    <tr><td>P02002</td><td>neil</td><td style="color:var(--text-secondary)">Efectivo</td><td style="text-align:right">$6.023.180,00</td></tr>
+    <tr><td>P02000</td><td>SICCBA</td><td style="color:var(--text-secondary)">Echeq 15-30</td><td style="text-align:right">$1.107.997,39</td></tr>
+    <tr><td>P01999</td><td>Avin ice</td><td style="color:var(--text-secondary)">Echeq 30</td><td style="text-align:right">$1.297.700,00</td></tr>
+    <tr><td>P01998</td><td>Nelson pinturas</td><td style="color:var(--text-secondary)">Echeq 30</td><td style="text-align:right">$1.304.623,20</td></tr>
+    <tr><td>P01996</td><td>Mauro Trovato</td><td style="color:var(--text-secondary)">Coordinar Envio</td><td style="text-align:right">$1.080.000,00</td></tr>
+    <tr><td>P01994</td><td>Asia tableros</td><td style="color:var(--text-secondary)">Transferencia</td><td style="text-align:right">$1.026.295,00</td></tr>
+    <tr><td>P01993</td><td>Servicios SG</td><td style="color:var(--text-secondary)">Transferencia</td><td style="text-align:right">$100.000,00</td></tr>
+    <tr><td>P01989</td><td>Genesis vidrios</td><td style="color:var(--text-secondary)">Transferencia</td><td style="text-align:right">$253.900,00</td></tr>
+    <tr><td>P01985</td><td>SANJO</td><td style="color:var(--text-secondary)">Planificación</td><td style="text-align:right">U$17.096,00</td></tr>
+    <tr><td>P01980</td><td>Mesada de fibras</td><td style="color:var(--text-secondary)">Partes pendientes</td><td style="text-align:right">$673.000,00</td></tr>
+    <tr><td>P01979</td><td>tapihouse</td><td style="color:var(--text-secondary)">Saldo pendiente de $565.540</td><td style="text-align:right">$1.597.666,00</td></tr>
+    <tr><td>P01972</td><td>Mercedes benz</td><td style="color:var(--text-secondary)">Coordinar Envio</td><td style="text-align:right">$14.520.000,00</td></tr>
+    <tr><td>P01876</td><td>INTI</td><td style="color:var(--text-secondary)">Transferencia</td><td style="text-align:right">$280.000,00</td></tr>
+    <tr><td>P01830</td><td>neil</td><td style="color:var(--text-secondary)">Efectivo</td><td style="text-align:right">$8.400.136,00</td></tr>
   </tbody>
 </table>
 
-<h2>Por modalidad</h2>
-<div class="chart-box" style="height:140px"><canvas id="odooChart"></canvas></div>
-
-<p class="footnote">Fuente: Odoo — Compra &gt; Solicitudes de presupuesto (gpro.com.ar). Son las últimas 11 solicitudes cargadas al 14/07/2026, todas en estado "Petición presupuesto". El campo "Actividad siguiente" es el que definís vos al cargar cada una y es el que marca la modalidad y el plazo de pago — por eso es la columna clave para saber cuándo sale la plata. Ojo: esto es solo lo último cargado, no la cola completa de Odoo (que tiene 1680 solicitudes históricas) — si querés ampliar el rango, decime y lo agrando.</p>
+<p class="footnote">Fuente: Odoo — Compra &gt; Solicitudes de presupuesto (gpro.com.ar), filtro "Destacado" (estrellita), rango P01830 a P02036, foto al 14/07/2026. Se excluyó 1 orden (P01983, LAGO HERMANOS SA, $238.634,40) porque su actividad decía "Coordinar logística" — ya está pagada, solo falta coordinar la entrega. El campo "Actividad siguiente" marca la modalidad y el plazo de pago. Nota: dejé adentro las que dicen "Coordinar Envio" y "Partes/saldo pendiente" porque no son exactamente "coordinar logística" — si esas también están pagadas y las tengo que sacar, decime y las saco.</p>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
@@ -230,8 +265,8 @@ function showPage(n) {
 new Chart(document.getElementById('odooChart'), {
   type: 'bar',
   data: {
-    labels: ['Transferencia','Echeq','Depósito bancario'],
-    datasets: [{ data: [1580450.10,4112273.00,2883000.00], backgroundColor: ['#ffa94d','#ff7a1a','#ffd08a'] }]
+    labels: ['Echeq','Transferencia','Efectivo','Otro / logística pendiente','Depósito bancario'],
+    datasets: [{ data: [38667317.08,6285537.69,14423316.00,17870666.00,2883000.00], backgroundColor: ['#ff7a1a','#ffa94d','#ffd08a','#8f8c84','#c96a12'] }]
   },
   options: {
     indexAxis: 'y', responsive: true, maintainAspectRatio: false,
